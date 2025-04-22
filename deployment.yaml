@@ -1,12 +1,44 @@
-apiVersion: v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: Enter deployment name
+  name: internal-health-check-api
 spec:
+  selector:
+    matchLabels:
+      app: internal-health-check-api
   template:
     metadata:
-      
+      labels:
+        app: internal-health-check-api
     spec:
       containers:
-      - name: name
-        image: Enter containers image
+      - name: internal-health-check-api
+        image: internal-health-check-api:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: WEB_HEALTH_HOST
+          value: my-web.my-apps.svc.cluster.local
+        - name: WEB_HEALTH_PORT
+          value: "80"
+        - name: WEB_HEALTH_TYPE
+          value: "TCP"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: internal-health-check-api
+spec:
+  selector:
+    app: internal-health-check-api
+  ports:
+  - port: 8080
+    targetPort: 8080
+  type: ClusterIP
