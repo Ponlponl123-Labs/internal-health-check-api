@@ -48,8 +48,5 @@ func HealthPingENVKey(
 	if hs == "" || ts == "" || err != nil || pt <= 0 || pt >= 65536 || (ts != "UDP" && ts != "TCP") {
 		return false
 	}
-	ch := make(chan bool)
-	go HealthPing(hs, pt, ts)
-	rs := <-ch
-	return rs
+	return HealthPing(hs, pt, ts)
 }

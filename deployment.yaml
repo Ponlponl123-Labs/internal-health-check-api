@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: Enter deployment name
+spec:
+  template:
+    metadata:
+      
+    spec:
+      containers:
+      - name: name
+        image: Enter containers image
