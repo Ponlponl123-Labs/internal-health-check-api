@@ -1,3 +1,5 @@
+> ⚠️ Deprecated: Moved to [internal-service-health-check-api](https://github.com/Ponlponl123-Labs/internal-service-health-check-api) with Rust
+
 # internal-health-check-api
 
 A simple and very light weight health check api with golang
